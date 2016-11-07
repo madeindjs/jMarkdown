@@ -5,6 +5,7 @@
  */
 package jmarkdown.window.form;
 
+import java.awt.Font;
 import javax.swing.JLabel;
 
 /**
@@ -12,9 +13,13 @@ import javax.swing.JLabel;
  * @author rousseaua
  */
 public class Output extends JLabel{
+    
+    private Font font = new Font("Verdana", Font.PLAIN, 12);
 
     public Output(String newValue) {
         super(newValue);
+        this.setVerticalAlignment(TOP);
+        this.setFont(font);
     }
     
 }

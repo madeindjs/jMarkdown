@@ -5,6 +5,7 @@
  */
 package jmarkdown.window.form;
 
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -18,10 +19,13 @@ import observer.Observer;
 public class Input extends JTextArea implements observer.Observable, KeyListener{
     
     private ArrayList<Observer> observers = new ArrayList<Observer>();
+    private Font font = new Font("Verdana", Font.PLAIN, 12);
 
     public Input(String defaultValue) {
         super(defaultValue);
         this.addKeyListener(this);
+        this.setFont(font);
+        this.setLineWrap(true);
     }
 
     @Override

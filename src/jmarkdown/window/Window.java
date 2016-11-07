@@ -5,7 +5,6 @@
  */
 package jmarkdown.window;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,22 +20,25 @@ public class Window extends JFrame implements observer.Observer{
     private JPanel container = new JPanel(); 
     private Input input = new Input("Hello World");
     private Output output = new Output("Hello World");
+    private GridLayout layout = new GridLayout(1,2);
 
     
     public Window(String title) {
-        this.setTitle(title);
-        this.setSize(300,300);
+        // set GridLayout properties
+        layout.setHgap(5);
+        layout.setVgap(5);
+        container.setLayout(layout);
         
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new BorderLayout());
-        
-        input.addObserver(this);
-        
-        container.setLayout(new GridLayout(1,2));
+        // insert objects in main container
         container.add(input);
         container.add(output);
-
         this.setContentPane(container);
+        
+        // prepare windows
+        this.setTitle(title);
+        this.setSize(300,300);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        input.addObserver(this);
     }        
 
     public void display(){
