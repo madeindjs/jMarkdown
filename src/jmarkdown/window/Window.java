@@ -17,6 +17,8 @@ import jmarkdown.window.form.Output;
  */
 public class Window extends JFrame implements observer.Observer{
     
+    private MenuBar menuBar = new MenuBar();
+    
     private JPanel container = new JPanel(); 
     private Input input = new Input("Hello World");
     private Output output = new Output("Hello World");
@@ -24,6 +26,10 @@ public class Window extends JFrame implements observer.Observer{
 
     
     public Window(String title) {
+        
+        
+        
+        
         // set GridLayout properties
         layout.setHgap(5);
         layout.setVgap(5);
@@ -33,6 +39,9 @@ public class Window extends JFrame implements observer.Observer{
         container.add(input);
         container.add(output);
         this.setContentPane(container);
+        
+        // set menu bar
+        this.setJMenuBar(menuBar);
         
         // prepare windows
         this.setTitle(title);
