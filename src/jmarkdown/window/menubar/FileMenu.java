@@ -7,7 +7,6 @@ package jmarkdown.window.menubar;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import jmarkdown.window.Window;
@@ -16,9 +15,7 @@ import jmarkdown.window.Window;
  *
  * @author rousseaua
  */
-public class FileMenu extends JMenu{
-    
-    private Window window ;
+public class FileMenu extends AbstractMenu{
     
     private final JMenuItem create = new JMenuItem("New");
     private final JMenuItem open = new JMenuItem("Open");
@@ -28,9 +25,7 @@ public class FileMenu extends JMenu{
     private final JMenuItem quit = new JMenuItem("Quit");
 
     public FileMenu(Window newWindow) {
-        super("File");
-        
-        window = newWindow;
+        super("File", newWindow);
         
         this.add(create).addActionListener(new FileNewListener());
         this.add(open);
@@ -47,7 +42,6 @@ public class FileMenu extends JMenu{
             
             if(window.input.isUnsaved()){
                 // show a confirm dialog
-                JOptionPane az = new JOptionPane();
                 int option = JOptionPane.showConfirmDialog(null, 
                         "All non-saved data will be lost", "Begin a new file?",  
                         JOptionPane.OK_CANCEL_OPTION
