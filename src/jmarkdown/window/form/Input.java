@@ -42,15 +42,15 @@ public class Input extends JTextArea implements observer.Observable, KeyListener
     }
 
     @Override
-    public void keyTyped(KeyEvent ke) {
-        this.updateObserver(Character.toString(ke.getKeyChar()));
-    }
+    public void keyTyped(KeyEvent ke) { }
 
     @Override
     public void keyPressed(KeyEvent ke) { }
 
     @Override
-    public void keyReleased(KeyEvent ke) { }
+    public void keyReleased(KeyEvent ke) {
+        this.updateObserver(Character.toString(ke.getKeyChar()));
+    }
    
     
 }

@@ -8,9 +8,9 @@ package jmarkdown.window;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import jmarkdown.window.form.Input;
+import jmarkdown.window.form.Output;
 
 /**
  * Represent the Calculator Window
@@ -20,7 +20,7 @@ public class Window extends JFrame implements observer.Observer{
     
     private JPanel container = new JPanel(); 
     private Input input = new Input("Hello World");
-    private JLabel output = new JLabel("Hello World");
+    private Output output = new Output("Hello World");
 
     
     public Window(String title) {
@@ -45,7 +45,7 @@ public class Window extends JFrame implements observer.Observer{
 
     @Override
     public void update(String value) {
-        System.out.println("jmarkdown.window.Window.update("+value+")");
+        output.setText(input.getText());
     }
     
 }
