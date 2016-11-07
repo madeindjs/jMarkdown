@@ -9,7 +9,7 @@ import javax.swing.JCheckBoxMenuItem;
 import jmarkdown.window.Window;
 
 /**
- *
+ * Reprensent JMenu group for all "Preview"
  * @author rousseaua
  */
 public class WindowsMenu extends AbstractMenu{

@@ -9,7 +9,7 @@ import javax.swing.JMenu;
 import jmarkdown.window.Window;
 
 /**
- *
+ * An abstract class for all Jmenu Item
  * @author rousseaua
  */
 public abstract class AbstractMenu extends JMenu{
