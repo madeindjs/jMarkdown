@@ -21,11 +21,19 @@ public class Input extends JTextArea implements observer.Observable, KeyListener
     private ArrayList<Observer> observers = new ArrayList<Observer>();
     private Font font = new Font("Verdana", Font.PLAIN, 12);
 
-    public Input(String defaultValue) {
-        super(defaultValue);
+    public Input() {
+        super();
         this.addKeyListener(this);
         this.setFont(font);
         this.setLineWrap(true);
+    }
+    
+    /**
+     * Check if current modifications is unsaved
+     * @return true file is unsaved
+     */
+    public boolean isUnsaved(){
+        return !this.getText().equalsIgnoreCase("");
     }
 
     @Override

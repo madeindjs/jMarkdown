@@ -5,16 +5,21 @@
  */
 package jmarkdown.window;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  * a complete menubar for jMarkdown
  * @author rousseaua
  */
 public class MenuBar extends JMenuBar{
+    
+    private Window window ;
     
     private final JMenu menuFile = new JMenu("File");
     private final JMenuItem mItemNew = new JMenuItem("New");
@@ -37,8 +42,11 @@ public class MenuBar extends JMenuBar{
 
    
 
-    public MenuBar() {
-        menuFile.add(mItemNew);
+    public MenuBar(Window newWindow) {
+        
+        this.window = newWindow ;
+        
+        menuFile.add(mItemNew).addActionListener(new FileNewListener());
         menuFile.add(mItemOpen);
         menuFile.add(mItemSave);
         menuFile.add(mItemSaveAs);
@@ -56,5 +64,27 @@ public class MenuBar extends JMenuBar{
         helpWindows.add(mItemMdSyntax);
         helpWindows.add(mItemAbout);
         this.add(helpWindows);
+    }
+    
+    class FileNewListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            
+            if(window.input.isUnsaved()){
+                // show a confirm dialog
+                JOptionPane az = new JOptionPane();
+                int option = JOptionPane.showConfirmDialog(null, 
+                        "All non-saved data will be lost", "Begin a new file?",  
+                        JOptionPane.OK_CANCEL_OPTION
+                );
+
+                // if user confirm, we reset input & output
+                if(option == JOptionPane.OK_OPTION){
+                    window.input.setText("");
+                    window.output.setText("");
+                }
+            }
+        }
     }
 }

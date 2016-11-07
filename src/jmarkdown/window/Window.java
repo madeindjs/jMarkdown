@@ -17,18 +17,17 @@ import jmarkdown.window.form.Output;
  */
 public class Window extends JFrame implements observer.Observer{
     
-    private MenuBar menuBar = new MenuBar();
+    private MenuBar menuBar;
     
     private JPanel container = new JPanel(); 
-    private Input input = new Input("Hello World");
-    private Output output = new Output("Hello World");
+    protected Input input = new Input();
+    protected Output output = new Output();
     private GridLayout layout = new GridLayout(1,2);
 
     
     public Window(String title) {
         
-        
-        
+        menuBar = new MenuBar(this);
         
         // set GridLayout properties
         layout.setHgap(5);
