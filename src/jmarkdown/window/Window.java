@@ -5,6 +5,7 @@
  */
 package jmarkdown.window;
 
+import jmarkdown.window.menubar.MenuBar;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,8 +21,8 @@ public class Window extends JFrame implements observer.Observer{
     private MenuBar menuBar;
     
     private JPanel container = new JPanel(); 
-    protected Input input = new Input();
-    protected Output output = new Output();
+    public Input input = new Input();
+    public Output output = new Output();
     private GridLayout layout = new GridLayout(1,2);
 
     

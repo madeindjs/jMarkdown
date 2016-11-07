@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jmarkdown.window;
+package jmarkdown.window.menubar;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import jmarkdown.window.Window;
 
 /**
  * a complete menubar for jMarkdown
@@ -20,14 +21,6 @@ import javax.swing.JOptionPane;
 public class MenuBar extends JMenuBar{
     
     private Window window ;
-    
-    private final JMenu menuFile = new JMenu("File");
-    private final JMenuItem mItemNew = new JMenuItem("New");
-    private final JMenuItem mItemOpen = new JMenuItem("Open");
-    private final JMenuItem mItemSave = new JMenuItem("Save");
-    private final JMenuItem mItemSaveAs = new JMenuItem("Save as ...");
-    private final JMenuItem mItemExport = new JMenuItem("Export");
-    private final JMenuItem mItemQuit = new JMenuItem("Quit");
     
     private final JMenu menuFormat = new JMenu("Format");
     private final JMenuItem mItemBold = new JMenuItem("Bold");
@@ -46,13 +39,7 @@ public class MenuBar extends JMenuBar{
         
         this.window = newWindow ;
         
-        menuFile.add(mItemNew).addActionListener(new FileNewListener());
-        menuFile.add(mItemOpen);
-        menuFile.add(mItemSave);
-        menuFile.add(mItemSaveAs);
-        menuFile.add(mItemExport);
-        menuFile.add(mItemQuit);
-        this.add(menuFile);
+        this.add(new FileMenu(newWindow));
         
         menuFormat.add(mItemBold);
         menuFormat.add(mItemItalic);
@@ -66,25 +53,5 @@ public class MenuBar extends JMenuBar{
         this.add(helpWindows);
     }
     
-    class FileNewListener implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            
-            if(window.input.isUnsaved()){
-                // show a confirm dialog
-                JOptionPane az = new JOptionPane();
-                int option = JOptionPane.showConfirmDialog(null, 
-                        "All non-saved data will be lost", "Begin a new file?",  
-                        JOptionPane.OK_CANCEL_OPTION
-                );
-
-                // if user confirm, we reset input & output
-                if(option == JOptionPane.OK_OPTION){
-                    window.input.setText("");
-                    window.output.setText("");
-                }
-            }
-        }
-    }
+    
 }
