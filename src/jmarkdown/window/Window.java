@@ -16,7 +16,7 @@ import jmarkdown.window.form.Input;
  * Represent the Calculator Window
  * @author rousseaua
  */
-public class Window extends JFrame{
+public class Window extends JFrame implements observer.Observer{
     
     private JPanel container = new JPanel(); 
     private Input input = new Input("Hello World");
@@ -30,6 +30,8 @@ public class Window extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         
+        input.addObserver(this);
+        
         container.setLayout(new GridLayout(1,2));
         container.add(input);
         container.add(output);
@@ -39,6 +41,11 @@ public class Window extends JFrame{
 
     public void display(){
         this.setVisible(true);
+    }
+
+    @Override
+    public void update(String value) {
+        System.out.println("jmarkdown.window.Window.update("+value+")");
     }
     
 }
