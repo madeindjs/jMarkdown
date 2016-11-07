@@ -45,7 +45,9 @@ public class Window extends JFrame implements observer.Observer{
 
     @Override
     public void update(String value) {
-        output.setText(input.getText());
+        String plainText = input.getText();
+        String html = com.github.rjeschke.txtmark.Processor.process(plainText);
+        output.setText("<html>"+ html+ "</html>");
     }
     
 }
