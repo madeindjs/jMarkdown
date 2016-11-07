@@ -6,6 +6,7 @@
 package jmarkdown.window;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,10 +30,9 @@ public class Window extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         
-        container.setLayout(new BorderLayout());
-        
-        container.add(input, BorderLayout.WEST);
-        container.add(output, BorderLayout.EAST);
+        container.setLayout(new GridLayout(1,2));
+        container.add(input);
+        container.add(output);
 
         this.setContentPane(container);
     }        
