@@ -5,6 +5,7 @@
  */
 package jmarkdown.window;
 
+import jmarkdown.window.menubar.MenuBar;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,13 +18,18 @@ import jmarkdown.window.form.Output;
  */
 public class Window extends JFrame implements observer.Observer{
     
+    private MenuBar menuBar;
+    
     private JPanel container = new JPanel(); 
-    private Input input = new Input("Hello World");
-    private Output output = new Output("Hello World");
+    public Input input = new Input();
+    public Output output = new Output();
     private GridLayout layout = new GridLayout(1,2);
 
     
     public Window(String title) {
+        
+        menuBar = new MenuBar(this);
+        
         // set GridLayout properties
         layout.setHgap(5);
         layout.setVgap(5);
@@ -33,6 +39,9 @@ public class Window extends JFrame implements observer.Observer{
         container.add(input);
         container.add(output);
         this.setContentPane(container);
+        
+        // set menu bar
+        this.setJMenuBar(menuBar);
         
         // prepare windows
         this.setTitle(title);

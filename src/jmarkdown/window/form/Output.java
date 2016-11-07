@@ -16,8 +16,8 @@ public class Output extends JLabel{
     
     private Font font = new Font("Verdana", Font.PLAIN, 12);
 
-    public Output(String newValue) {
-        super(newValue);
+    public Output() {
+        super();
         this.setVerticalAlignment(TOP);
         this.setFont(font);
     }
