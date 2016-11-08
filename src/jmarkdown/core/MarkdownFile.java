@@ -5,6 +5,14 @@
  */
 package jmarkdown.core;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Stream;
+import jmarkdown.window.menubar.FileMenu;
+
 /**
  * Reprensent the markdown file
  * @author rousseaua
@@ -18,6 +26,24 @@ public class MarkdownFile {
         content = new String();
     }
     
+    /**
+     * Initialize Markdown object from a Markdown file
+     * @param file as a Markdown file
+     */
+    public MarkdownFile(File file){
+        Stream<String> lines;
+        try {
+            lines = Files.lines(file.toPath());
+            lines.forEach(line -> content += line+"\r\n");
+        } catch (IOException ex) {
+            Logger.getLogger(FileMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public String getContent(){
+        return this.content;
+    }
     
     public void setContent(String newContent){
         this.content = newContent ;
