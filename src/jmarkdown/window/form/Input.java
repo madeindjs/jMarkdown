@@ -29,13 +29,12 @@ public class Input extends JTextArea implements observer.Observable, KeyListener
     }
     
     /**
-     * Append 
+     * Append String to the content of Markdown file
      * @param string 
      */
     @Override
     public void append(String string) {
-        super.append(string);
-        this.updateObserver(string);
+        this.updateObserver();
     }
 
     @Override
@@ -44,9 +43,9 @@ public class Input extends JTextArea implements observer.Observable, KeyListener
     }
 
     @Override
-    public void updateObserver(String signal) {
+    public void updateObserver() {
         for(Observer obs : observers){
-            obs.update(signal);
+            obs.update();
         }
     }
 
@@ -63,7 +62,7 @@ public class Input extends JTextArea implements observer.Observable, KeyListener
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        this.updateObserver(Character.toString(ke.getKeyChar()));
+        this.updateObserver();
     }
    
     

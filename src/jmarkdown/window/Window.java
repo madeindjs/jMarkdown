@@ -58,7 +58,7 @@ public class Window extends JFrame implements observer.Observer{
     }
 
     @Override
-    public void update(String value) {
+    public void update() {
         mdFile.setContent(input.getText());
         output.setText(mdFile.toHtml());
     }

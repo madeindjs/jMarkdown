@@ -22,7 +22,7 @@ public interface Observable {
     /**
      * Send a signal to all Observer
      */
-    public void updateObserver(String signal);
+    public void updateObserver();
     
     /**
      * Delete a specified Observer

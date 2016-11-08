@@ -13,7 +13,6 @@ public interface Observer {
     
     /**
      * Catch the signal from the Observable object
-     * @param value 
      */
-    public void update(String value);
+    public void update();
 }
