@@ -20,6 +20,7 @@ import jmarkdown.window.menubar.FileMenu;
 public class MarkdownFile {
     
     private String content = "";
+    private File file = null;
 
     
     public MarkdownFile() {
@@ -30,8 +31,9 @@ public class MarkdownFile {
      * Initialize Markdown object from a Markdown file
      * @param file as a Markdown file
      */
-    public MarkdownFile(File file){
+    public MarkdownFile(File newFile){
         Stream<String> lines;
+        this.file = newFile;
         try {
             lines = Files.lines(file.toPath());
             lines.forEach(line -> content += line+"\r\n");
@@ -48,6 +50,18 @@ public class MarkdownFile {
     public void setContent(String newContent){
         this.content = newContent ;
     }
+    
+    /**
+     * @return filename if set else return "untilted.md"
+     */
+    public String getFilename(){
+        if(file == null){
+            return "untilted.md";
+        }else{
+            return file.getName();
+        }
+    }
+    
     
     /**
      * Convert the content from Markdown to Html

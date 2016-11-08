@@ -52,7 +52,7 @@ public class FileMenu extends AbstractMenu{
         @Override
         public void actionPerformed(ActionEvent ae) {
             
-            if(window.mdFile.isUnsaved()){
+            if(window.getMarkdownFile().isUnsaved()){
                 // show a confirm dialog
                 int option = JOptionPane.showConfirmDialog(null, 
                         "All non-saved data will be lost", "Begin a new file?",  
@@ -75,8 +75,8 @@ public class FileMenu extends AbstractMenu{
             
             if (fileChooser.showOpenDialog(window) == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                window.mdFile = new MarkdownFile(file) ;
-                window.input.setText(window.mdFile.getContent());
+                window.setMarkdownFile(new MarkdownFile(file));
+                window.input.setText(window.getMarkdownFile().getContent());
                 window.input.updateObserver();
             } else {
                 System.out.println("Open command cancelled by user.");
