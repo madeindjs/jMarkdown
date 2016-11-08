@@ -19,7 +19,9 @@ import jmarkdown.window.menubar.FileMenu;
  */
 public class MarkdownFile {
     
+    private String oldContent = "";
     private String content = "";
+
     private File file = null;
 
     
@@ -33,13 +35,22 @@ public class MarkdownFile {
      */
     public MarkdownFile(File newFile){
         Stream<String> lines;
+        this.setFile(newFile);
+    }
+    
+    /**
+     * Load file content
+     * @param newFile 
+     */
+    public void setFile(File newFile){
         this.file = newFile;
+        this.oldContent = "";
         try {
-            lines = Files.lines(file.toPath());
-            lines.forEach(line -> content += line+"\r\n");
+            Files.lines(file.toPath()).forEach(line -> oldContent += line+"\r\n");
         } catch (IOException ex) {
             Logger.getLogger(FileMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
+        content = oldContent;
     }
     
     
@@ -84,10 +95,9 @@ public class MarkdownFile {
     
     /**
      * Check if current modifications is unsaved
-     * (not complete yet)
      * @return true file is unsaved
      */
     public boolean isUnsaved(){
-        return !this.content.equalsIgnoreCase("");
+        return !this.content.equals(oldContent);
     }
 }

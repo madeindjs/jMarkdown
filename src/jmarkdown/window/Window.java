@@ -58,7 +58,9 @@ public class Window extends JFrame implements observer.Observer{
      * update title as this format: "{opened file} - jMarkdown"
      */
     public void setTitle(){
-        this.setTitle( mdFile.getFilename().concat(" - jMarkdown") );
+        String newTitle = mdFile.isUnsaved() ? "*" : "";
+        newTitle += mdFile.getFilename().concat(" - jMarkdown") ;
+        this.setTitle( newTitle );
     }
     
     /**
@@ -82,6 +84,7 @@ public class Window extends JFrame implements observer.Observer{
     public void update() {
         mdFile.setContent(input.getText());
         output.setText(mdFile.toHtml());
+        this.setTitle();
     }
     
 }
