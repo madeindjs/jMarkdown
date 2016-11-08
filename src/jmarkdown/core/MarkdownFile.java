@@ -46,7 +46,7 @@ public class MarkdownFile {
         this.file = newFile;
         this.oldContent = "";
         try {
-            Files.lines(file.toPath()).forEach(line -> oldContent += line+"\r\n");
+            Files.lines(file.toPath()).forEach(line -> oldContent += line+"\n");
         } catch (IOException ex) {
             Logger.getLogger(FileMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
