@@ -19,7 +19,7 @@ import jmarkdown.window.menubar.FileMenu;
  */
 public class MarkdownFile {
     
-    private String content ;
+    private String content = "";
 
     
     public MarkdownFile() {
