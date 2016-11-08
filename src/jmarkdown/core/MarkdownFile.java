@@ -41,4 +41,13 @@ public class MarkdownFile {
         this.setContent(newContent);
         return this.toHtml();
     }
+    
+    /**
+     * Check if current modifications is unsaved
+     * (not complete yet)
+     * @return true file is unsaved
+     */
+    public boolean isUnsaved(){
+        return !this.content.equalsIgnoreCase("");
+    }
 }

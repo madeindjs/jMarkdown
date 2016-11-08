@@ -40,7 +40,7 @@ public class FileMenu extends AbstractMenu{
         @Override
         public void actionPerformed(ActionEvent ae) {
             
-            if(window.input.isUnsaved()){
+            if(window.mdFile.isUnsaved()){
                 // show a confirm dialog
                 int option = JOptionPane.showConfirmDialog(null, 
                         "All non-saved data will be lost", "Begin a new file?",  

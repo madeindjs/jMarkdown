@@ -26,7 +26,7 @@ public class Window extends JFrame implements observer.Observer{
     public Output output = new Output();
     private GridLayout layout = new GridLayout(1,2);
     
-    private MarkdownFile mdFile = new MarkdownFile();
+    public MarkdownFile mdFile = new MarkdownFile();
 
     
     public Window(String title) {

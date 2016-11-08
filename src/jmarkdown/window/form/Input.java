@@ -28,13 +28,7 @@ public class Input extends JTextArea implements observer.Observable, KeyListener
         this.setLineWrap(true);
     }
     
-    /**
-     * Check if current modifications is unsaved
-     * @return true file is unsaved
-     */
-    public boolean isUnsaved(){
-        return !this.getText().equalsIgnoreCase("");
-    }
+    
 
     @Override
     public void addObserver(Observer obs) {
