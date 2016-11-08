@@ -8,7 +8,12 @@ package jmarkdown.window.menubar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Stream;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -74,8 +79,15 @@ public class FileMenu extends AbstractMenu{
             
             if (fileChooser.showOpenDialog(window) == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                //This is where a real application would open the file.
-                System.out.println("Opening: " + file.getName() );
+                // read file and insert into window.input
+                Stream<String> lines;
+                try {
+                    lines = Files.lines(file.toPath());
+                    lines.forEach(line -> window.input.append(line+"\r\n"));
+                } catch (IOException ex) {
+                    Logger.getLogger(FileMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             } else {
                 System.out.println("Open command cancelled by user.");
             }
