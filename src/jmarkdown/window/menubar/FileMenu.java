@@ -8,9 +8,11 @@ package jmarkdown.window.menubar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import jmarkdown.core.MyUtils;
 import jmarkdown.window.Window;
 
 /**
@@ -38,6 +40,8 @@ public class FileMenu extends AbstractMenu{
         this.add(saveAs);
         this.add(export);
         this.add(quit);
+        
+        fileChooser.addChoosableFileFilter(new MarkdownFileFilter());
         
         
     }
@@ -78,4 +82,35 @@ public class FileMenu extends AbstractMenu{
         }
     }
     
+    /**
+     * a class to filter only Markdown extension file in JFileChooser
+     */
+    class MarkdownFileFilter extends javax.swing.filechooser.FileFilter{
+        
+        private String allowedExtension = "md";
+
+        public MarkdownFileFilter() {
+        }
+        
+        @Override
+        public boolean accept(File file) {
+            if (file.isDirectory()) {
+                return true;
+            }else{
+                String extension = MyUtils.getExtension(file);
+                if(extension == null){
+                    return false;
+                }else{
+                    return extension.equals(allowedExtension);
+                }
+                
+            }
+        }
+
+        @Override
+        public String getDescription() {
+            return allowedExtension;
+        }
+
+    }
 }
