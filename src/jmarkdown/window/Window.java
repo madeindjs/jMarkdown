@@ -9,6 +9,7 @@ import jmarkdown.window.menubar.MenuBar;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import jmarkdown.core.MarkdownFile;
 import jmarkdown.window.form.Input;
 import jmarkdown.window.form.Output;
 
@@ -24,6 +25,8 @@ public class Window extends JFrame implements observer.Observer{
     public Input input = new Input();
     public Output output = new Output();
     private GridLayout layout = new GridLayout(1,2);
+    
+    private MarkdownFile mdFile = new MarkdownFile();
 
     
     public Window(String title) {
@@ -56,9 +59,8 @@ public class Window extends JFrame implements observer.Observer{
 
     @Override
     public void update(String value) {
-        String plainText = input.getText();
-        String html = com.github.rjeschke.txtmark.Processor.process(plainText);
-        output.setText("<html>"+ html+ "</html>");
+        mdFile.setContent(input.getText());
+        output.setText(mdFile.toHtml());
     }
     
 }
