@@ -7,6 +7,7 @@ package jmarkdown.window.menubar;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import jmarkdown.core.MarkdownFile;
 import jmarkdown.core.MyUtils;
 import jmarkdown.window.Window;
@@ -38,11 +40,22 @@ public class FileMenu extends AbstractMenu{
     public FileMenu(Window newWindow) {
         super("File", newWindow);
         
+        create.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_MASK));
         this.add(create).addActionListener(new FileNewListener());
+        
+        open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_MASK));
         this.add(open).addActionListener(new FileOpenListener());
+        
+        save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_MASK));
         this.add(save).addActionListener(new FileSaveListener());
+        
+        saveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.SHIFT_DOWN_MASK + KeyEvent.CTRL_MASK));
         this.add(saveAs).addActionListener(new FileSaveAsListener());
+        
+        export.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_MASK));
         this.add(export);
+        
+        quit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_MASK));
         this.add(quit);
         
         fileChooser.addChoosableFileFilter(new MarkdownFileFilter());
