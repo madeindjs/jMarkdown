@@ -5,7 +5,11 @@
  */
 package jmarkdown.window.menubar;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 import jmarkdown.window.Window;
 
 /**
@@ -13,12 +17,32 @@ import jmarkdown.window.Window;
  * @author rousseaua
  */
 public class FormatMenu extends AbstractMenu{
-    private final JMenuItem mItemBold = new JMenuItem("Bold");
-    private final JMenuItem mItemItalic = new JMenuItem("Italic");
+    private final JMenuItem bold = new JMenuItem("Bold");
+    private final JMenuItem italic = new JMenuItem("Italic");
 
     public FormatMenu(Window newWindow) {
         super("Format", newWindow);
-        this.add(mItemBold);
-        this.add(mItemItalic);
+        
+        bold.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_MASK));
+        this.add(bold).addActionListener(new FormatBoldListener());
+        
+        italic.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_MASK));
+        this.add(italic).addActionListener(new FormatItalicListener());
+    }
+    
+    class FormatBoldListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+        }
+        
+    }
+    
+    class FormatItalicListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+        }
+        
     }
 }
