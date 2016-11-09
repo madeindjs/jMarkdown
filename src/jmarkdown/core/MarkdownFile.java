@@ -6,6 +6,7 @@
 package jmarkdown.core;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.logging.Level;
@@ -99,5 +100,45 @@ public class MarkdownFile {
      */
     public boolean isUnsaved(){
         return !this.content.equals(oldContent);
+    }
+    
+    
+    /**
+     * Check if the file can be saved
+     * @return true if file can be saved
+     */
+    public boolean canBeSaved(){
+        return (this.file != null);
+    }
+    
+    
+    /**
+     * Save content in the file
+     * @return true if sucess
+     */
+    public boolean save(){
+        if(this.canBeSaved()){
+            try(FileWriter fw = new FileWriter(this.file)) {
+                fw.write(content);
+                return true;
+            } catch (IOException ex) {
+                System.out.println("Save file can't be opened");
+                return false;
+            }
+        }else{
+            System.out.println("File can't be saved");
+            return false;
+        }
+    }
+    
+    /**
+     * Save content in the given file
+     * @param newFile as where you want to save
+     * @return true if sucess
+     */
+    public boolean save(File newFile){
+        this.file = newFile;
+        oldContent = content;
+        return this.save();
     }
 }
