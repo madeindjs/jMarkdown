@@ -38,6 +38,16 @@ public class Input extends JEditorPane implements observer.Observable, KeyListen
     public void italicify(){ insertTag("*"); }
     
     /**
+     * Make the selection as code or insert a markdown code tag
+     */
+    public void codeify(){ insertTag("`"); }
+    
+    /**
+     * Make the selection as code or insert a markdown code tag
+     */
+    public void codeblockify(){ insertTag("\r```\r"); }
+    
+    /**
      * A shared function between boldify() and italicify()
      * @param markdownTag to insert
      */
