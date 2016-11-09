@@ -5,6 +5,8 @@
  */
 package jmarkdown.window.menubar;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JCheckBoxMenuItem;
 import jmarkdown.window.Window;
 
@@ -17,7 +19,14 @@ public class WindowsMenu extends AbstractMenu{
     private final JCheckBoxMenuItem preview = new JCheckBoxMenuItem("Preview");
 
     public WindowsMenu(Window newWindow) {
-        super("Format", newWindow);
-        this.add(preview);
+        super("Windows", newWindow);
+        this.add(preview).addActionListener(new WindowsPreviewListener());
+    }
+    
+    class WindowsPreviewListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            window.input.boldify();
+        }
     }
 }
