@@ -6,6 +6,7 @@
 package jmarkdown.core;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.logging.Level;
@@ -19,7 +20,10 @@ import jmarkdown.window.menubar.FileMenu;
  */
 public class MarkdownFile {
     
+    private String oldContent = "";
     private String content = "";
+
+    private File file = null;
 
     
     public MarkdownFile() {
@@ -30,14 +34,24 @@ public class MarkdownFile {
      * Initialize Markdown object from a Markdown file
      * @param file as a Markdown file
      */
-    public MarkdownFile(File file){
+    public MarkdownFile(File newFile){
         Stream<String> lines;
+        this.setFile(newFile);
+    }
+    
+    /**
+     * Load file content
+     * @param newFile 
+     */
+    public void setFile(File newFile){
+        this.file = newFile;
+        this.oldContent = "";
         try {
-            lines = Files.lines(file.toPath());
-            lines.forEach(line -> content += line+"\r\n");
+            Files.lines(file.toPath()).forEach(line -> oldContent += line+"\n");
         } catch (IOException ex) {
             Logger.getLogger(FileMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
+        content = oldContent;
     }
     
     
@@ -48,6 +62,18 @@ public class MarkdownFile {
     public void setContent(String newContent){
         this.content = newContent ;
     }
+    
+    /**
+     * @return filename if set else return "untilted.md"
+     */
+    public String getFilename(){
+        if(file == null){
+            return "untilted.md";
+        }else{
+            return file.getName();
+        }
+    }
+    
     
     /**
      * Convert the content from Markdown to Html
@@ -70,10 +96,49 @@ public class MarkdownFile {
     
     /**
      * Check if current modifications is unsaved
-     * (not complete yet)
      * @return true file is unsaved
      */
     public boolean isUnsaved(){
-        return !this.content.equalsIgnoreCase("");
+        return !this.content.equals(oldContent);
+    }
+    
+    
+    /**
+     * Check if the file can be saved
+     * @return true if file can be saved
+     */
+    public boolean canBeSaved(){
+        return (this.file != null);
+    }
+    
+    
+    /**
+     * Save content in the file
+     * @return true if sucess
+     */
+    public boolean save(){
+        if(this.canBeSaved()){
+            try(FileWriter fw = new FileWriter(this.file)) {
+                fw.write(content);
+                oldContent = content;
+                return true;
+            } catch (IOException ex) {
+                System.out.println("Save file can't be opened");
+                return false;
+            }
+        }else{
+            System.out.println("File can't be saved");
+            return false;
+        }
+    }
+    
+    /**
+     * Save content in the given file
+     * @param newFile as where you want to save
+     * @return true if sucess
+     */
+    public boolean save(File newFile){
+        this.file = newFile;
+        return this.save();
     }
 }

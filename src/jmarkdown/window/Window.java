@@ -26,7 +26,7 @@ public class Window extends JFrame implements observer.Observer{
     public Output output = new Output();
     private GridLayout layout = new GridLayout(1,2);
     
-    public MarkdownFile mdFile = new MarkdownFile();
+    private MarkdownFile mdFile = new MarkdownFile();
 
     
     public Window(String title) {
@@ -47,11 +47,34 @@ public class Window extends JFrame implements observer.Observer{
         this.setJMenuBar(menuBar);
         
         // prepare windows
-        this.setTitle(title);
+        this.setTitle();
         this.setSize(300,300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         input.addObserver(this);
-    }        
+        
+    }
+    
+    /**
+     * update title as this format: "{opened file} - jMarkdown"
+     */
+    public void setTitle(){
+        String newTitle = mdFile.isUnsaved() ? "*" : "";
+        newTitle += mdFile.getFilename().concat(" - jMarkdown") ;
+        this.setTitle( newTitle );
+    }
+    
+    /**
+     * update Markdown file and update title
+     * @param newMarkdownFile as new MdFile
+     */
+    public void setMarkdownFile(MarkdownFile newMarkdownFile){
+        this.mdFile = newMarkdownFile;
+        this.setTitle();
+    }
+    
+    public MarkdownFile getMarkdownFile(){
+        return this.mdFile;
+    }
 
     public void display(){
         this.setVisible(true);
@@ -61,6 +84,7 @@ public class Window extends JFrame implements observer.Observer{
     public void update() {
         mdFile.setContent(input.getText());
         output.setText(mdFile.toHtml());
+        this.setTitle();
     }
     
 }
