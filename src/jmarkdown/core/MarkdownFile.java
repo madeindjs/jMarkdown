@@ -79,7 +79,13 @@ public class MarkdownFile {
      */
     public String toHtml(){
         String html = com.github.rjeschke.txtmark.Processor.process(content);
-        return "<html>"+ html+ "</html>" ;
+        return "<html>"+
+                    "<head>" +
+                        "<meta charset=\"utf-8\">\n" +
+                        "<title>"+getFilename()+"</title>" +
+                    "</head>" +
+                "<body>" + html+ "</body>" +
+            "</html>";
     }
     
     /**
