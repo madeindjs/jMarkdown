@@ -27,19 +27,29 @@ public class Input extends JEditorPane implements observer.Observable, KeyListen
         this.setFont(font);
     }
     
-    public void boldify(){
+    /**
+     * Make the selection as bold or insert a markdown bold tag
+     */
+    public void boldify(){ insertTag("**"); }
+    
+    /**
+     * Make the selection as italic or insert a markdown italic tag
+     */
+    public void italicify(){ insertTag("*"); }
+    
+    /**
+     * A shared function between boldify() and italicify()
+     * @param markdownTag to insert
+     */
+    private void insertTag(String markdownTag){
         String stringSelected = getSelectedText();
         // check if something is selected
         if(stringSelected == null){ //nothing selected
-            insert("****", getCaretPosition());
+            insert(markdownTag+markdownTag, getCaretPosition());
         }else{ // something selected
-            insert("**"+stringSelected+"**", getSelectionStart(), getSelectionEnd() );
+            insert(markdownTag+stringSelected+markdownTag, getSelectionStart(), getSelectionEnd() );
             
         }
-    }
-    
-    public void italicify(){
-        insert("**", getCaretPosition());
     }
     
     /**
