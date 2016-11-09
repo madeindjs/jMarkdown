@@ -28,13 +28,24 @@ public class Input extends JEditorPane implements observer.Observable, KeyListen
     }
     
     public void boldify(){
-        append("****");
+        insert("****", getCaretPosition());
     }
     
     public void italicify(){
-        append("**");
+        insert("**", getCaretPosition());
     }
     
+    /**
+     * Insert the given string at the given position & set the cursor in the middle of the string
+     * @param string as the text to insert
+     * @param position as the position to insert the string
+     */
+    private void insert(String string, int position){
+        String content = this.getText();
+        content = content.substring(0, position)+string+content.substring(position, content.length());
+        this.setText(content);
+        this.setCaretPosition(position+string.length()/2);
+    }
     
     /**
      * Append String to the content of Markdown file
