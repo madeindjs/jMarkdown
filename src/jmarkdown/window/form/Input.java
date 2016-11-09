@@ -9,14 +9,14 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import javax.swing.JTextArea;
+import javax.swing.JEditorPane;
 import observer.Observer;
 
 /**
  *
  * @author rousseaua
  */
-public class Input extends JTextArea implements observer.Observable, KeyListener{
+public class Input extends JEditorPane implements observer.Observable, KeyListener{
     
     private ArrayList<Observer> observers = new ArrayList<Observer>();
     private Font font = new Font("Verdana", Font.PLAIN, 12);
@@ -25,7 +25,6 @@ public class Input extends JTextArea implements observer.Observable, KeyListener
         super();
         this.addKeyListener(this);
         this.setFont(font);
-        this.setLineWrap(true);
     }
     
     public void boldify(){
@@ -41,9 +40,9 @@ public class Input extends JTextArea implements observer.Observable, KeyListener
      * Append String to the content of Markdown file
      * @param string 
      */
-    @Override
     public void append(String string) {
-        super.append(string);
+        String content = this.getText().concat(string);
+        this.setText(content);
         this.updateObserver();
     }
 
