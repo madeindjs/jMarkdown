@@ -9,14 +9,14 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import javax.swing.JTextArea;
+import javax.swing.JEditorPane;
 import observer.Observer;
 
 /**
  *
  * @author rousseaua
  */
-public class Input extends JTextArea implements observer.Observable, KeyListener{
+public class Input extends JEditorPane implements observer.Observable, KeyListener{
     
     private ArrayList<Observer> observers = new ArrayList<Observer>();
     private Font font = new Font("Verdana", Font.PLAIN, 12);
@@ -25,15 +25,77 @@ public class Input extends JTextArea implements observer.Observable, KeyListener
         super();
         this.addKeyListener(this);
         this.setFont(font);
-        this.setLineWrap(true);
+    }
+    
+    /**
+     * Make the selection as bold or insert a markdown bold tag
+     */
+    public void boldify(){ insertTag("**"); }
+    
+    /**
+     * Make the selection as italic or insert a markdown italic tag
+     */
+    public void italicify(){ insertTag("*"); }
+    
+    /**
+     * Make the selection as code or insert a markdown code tag
+     */
+    public void codeify(){ insertTag("`"); }
+    
+    /**
+     * Make the selection as code or insert a markdown code tag
+     */
+    public void codeblockify(){ insertTag("\r```\r"); }
+    
+    /**
+     * A shared function between boldify() and italicify()
+     * @param markdownTag to insert
+     */
+    private void insertTag(String markdownTag){
+        String stringSelected = getSelectedText();
+        // check if something is selected
+        if(stringSelected == null){ //nothing selected
+            insert(markdownTag+markdownTag, getCaretPosition());
+        }else{ // something selected
+            insert(markdownTag+stringSelected+markdownTag, getSelectionStart(), getSelectionEnd() );
+            
+        }
+    }
+    
+    /**
+     * Insert the given string at the given position & set the cursor in the middle of the string
+     * @param string as the text to insert
+     * @param position as the position to insert the string
+     */
+    private void insert(String string, int position){
+        String content = this.getText();
+        content = content.substring(0, position)+string+content.substring(position, content.length());
+        this.setText(content);
+        this.setCaretPosition(position+string.length()/2);
+    }
+    
+    /**
+     * Insert the given string in the given positions and replace the text betwen them.
+     * Then set the cursor in the middle of the string
+     * @param string string as the text to insert
+     * @param positionStart as the begening position to insert the string
+     * @param positionEnd as the ending position to insert the string
+     */
+    private void insert(String string, int positionStart, int positionEnd){
+        String content = this.getText();
+        // get the text
+        content = content.substring(0, positionStart)+string+content.substring(positionEnd, content.length());
+        this.setText(content);
+        this.setCaretPosition(positionStart+string.length());
     }
     
     /**
      * Append String to the content of Markdown file
      * @param string 
      */
-    @Override
     public void append(String string) {
+        String content = this.getText().concat(string);
+        this.setText(content);
         this.updateObserver();
     }
 
