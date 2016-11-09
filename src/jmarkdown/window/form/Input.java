@@ -28,7 +28,14 @@ public class Input extends JEditorPane implements observer.Observable, KeyListen
     }
     
     public void boldify(){
-        insert("****", getCaretPosition());
+        String stringSelected = getSelectedText();
+        // check if something is selected
+        if(stringSelected == null){ //nothing selected
+            insert("****", getCaretPosition());
+        }else{ // something selected
+            insert("**"+stringSelected+"**", getSelectionStart(), getSelectionEnd() );
+            
+        }
     }
     
     public void italicify(){
@@ -45,6 +52,21 @@ public class Input extends JEditorPane implements observer.Observable, KeyListen
         content = content.substring(0, position)+string+content.substring(position, content.length());
         this.setText(content);
         this.setCaretPosition(position+string.length()/2);
+    }
+    
+    /**
+     * Insert the given string in the given positions and replace the text betwen them.
+     * Then set the cursor in the middle of the string
+     * @param string string as the text to insert
+     * @param positionStart as the begening position to insert the string
+     * @param positionEnd as the ending position to insert the string
+     */
+    private void insert(String string, int positionStart, int positionEnd){
+        String content = this.getText();
+        // get the text
+        content = content.substring(0, positionStart)+string+content.substring(positionEnd, content.length());
+        this.setText(content);
+        this.setCaretPosition(positionStart+string.length());
     }
     
     /**
