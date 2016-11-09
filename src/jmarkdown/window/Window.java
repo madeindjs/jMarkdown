@@ -79,6 +79,15 @@ public class Window extends JFrame implements observer.Observer{
     public void display(){
         this.setVisible(true);
     }
+    
+    /**
+     * Close this windows and terminate script
+     */
+    public void close(){
+        this.setVisible(false);
+        System.exit(0);
+
+    }
 
     @Override
     public void update() {

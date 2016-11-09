@@ -56,7 +56,7 @@ public class FileMenu extends AbstractMenu{
         this.add(export).addActionListener(new FileExportListener());
         
         quit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_MASK));
-        this.add(quit);
+        this.add(quit).addActionListener(new FileQuitListener());
         
         fileChooser.addChoosableFileFilter(new MarkdownFileFilter());
         fileChooser.setAcceptAllFileFilterUsed(false);
@@ -149,6 +149,14 @@ public class FileMenu extends AbstractMenu{
             } else { // if user close the file dialog
                 System.out.println("Open command cancelled by user.");
             }
+        }
+        
+    }
+    class FileQuitListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            window.close();
         }
         
     }
