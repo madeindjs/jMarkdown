@@ -9,10 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -83,7 +80,6 @@ public class FileMenu extends AbstractMenu{
             }
         }
     }
-    
     class FileOpenListener implements ActionListener{
 
         @Override
@@ -123,6 +119,9 @@ public class FileMenu extends AbstractMenu{
         }
     }
     
+    /**
+     * Open a new dialog to save current work in a given file
+     */
     private void openSaveAs(){
         // open save dialog & ask a file
         if (fileChooser.showSaveDialog(window) == JFileChooser.APPROVE_OPTION) {
@@ -144,7 +143,6 @@ public class FileMenu extends AbstractMenu{
             System.out.println("Open command cancelled by user.");
         }
     }
-    
     
     /**
      * a class to filter only Markdown extension file in JFileChooser

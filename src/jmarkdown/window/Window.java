@@ -86,5 +86,4 @@ public class Window extends JFrame implements observer.Observer{
         output.setText(mdFile.toHtml());
         this.setTitle();
     }
-    
 }

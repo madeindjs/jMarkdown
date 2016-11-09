@@ -54,7 +54,6 @@ public class MarkdownFile {
         content = oldContent;
     }
     
-    
     public String getContent(){
         return this.content;
     }
@@ -73,7 +72,6 @@ public class MarkdownFile {
             return file.getName();
         }
     }
-    
     
     /**
      * Convert the content from Markdown to Html
@@ -102,7 +100,6 @@ public class MarkdownFile {
         return !this.content.equals(oldContent);
     }
     
-    
     /**
      * Check if the file can be saved
      * @return true if file can be saved
@@ -110,7 +107,6 @@ public class MarkdownFile {
     public boolean canBeSaved(){
         return (this.file != null);
     }
-    
     
     /**
      * Save content in the file
