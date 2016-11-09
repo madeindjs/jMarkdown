@@ -90,35 +90,48 @@ public class FileMenu extends AbstractMenu{
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            
+            // get MarkdownFile & check if it can be saved
+            // if yes save it, if not open Save as dialog
+            MarkdownFile mdFile = window.getMarkdownFile() ;
+            if(mdFile.canBeSaved()){
+                mdFile.save();
+                window.input.updateObserver();
+                System.out.println("File save with success.");
+            }else{
+                openSaveAs();
+            }
         }
     }
     class FileSaveAsListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            // open save dialog & ask a file
-            if (fileChooser.showSaveDialog(window) == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
-                // try to save the file
-                if(window.getMarkdownFile().save(file)){
-                    // if success, we send a signal to refresh view
-                    window.input.updateObserver();
-                    System.out.println("File save with success.");
-                }else{
-                    // else we display a warning
-                    JOptionPane.showMessageDialog(
-                            window, 
-                            "Your file can't be saved. Check that filename not contains any special character or opened in another application", 
-                            "Error", JOptionPane.ERROR_MESSAGE
-                    );
-                }
-                
-            } else { // if user close the file dialog
-                System.out.println("Open command cancelled by user.");
-            }
+            openSaveAs();
         }
     }
+    
+    private void openSaveAs(){
+        // open save dialog & ask a file
+        if (fileChooser.showSaveDialog(window) == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            // try to save the file
+            if(window.getMarkdownFile().save(file)){
+                // if success, we send a signal to refresh view
+                window.input.updateObserver();
+                System.out.println("File save with success.");
+            }else{
+                // else we display a warning
+                JOptionPane.showMessageDialog(
+                    window, 
+                    "Your file can't be saved. Check that filename not contains any special character or opened in another application", 
+                    "Error", JOptionPane.ERROR_MESSAGE
+                );
+            }
+        } else { // if user close the file dialog
+            System.out.println("Open command cancelled by user.");
+        }
+    }
+    
     
     /**
      * a class to filter only Markdown extension file in JFileChooser

@@ -120,6 +120,7 @@ public class MarkdownFile {
         if(this.canBeSaved()){
             try(FileWriter fw = new FileWriter(this.file)) {
                 fw.write(content);
+                oldContent = content;
                 return true;
             } catch (IOException ex) {
                 System.out.println("Save file can't be opened");
@@ -138,7 +139,6 @@ public class MarkdownFile {
      */
     public boolean save(File newFile){
         this.file = newFile;
-        oldContent = content;
         return this.save();
     }
 }
