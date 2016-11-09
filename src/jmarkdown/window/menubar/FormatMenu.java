@@ -34,6 +34,7 @@ public class FormatMenu extends AbstractMenu{
 
         @Override
         public void actionPerformed(ActionEvent ae) {
+            window.input.boldify();
         }
         
     }
@@ -42,6 +43,7 @@ public class FormatMenu extends AbstractMenu{
 
         @Override
         public void actionPerformed(ActionEvent ae) {
+            window.input.italicify();
         }
         
     }

@@ -28,12 +28,22 @@ public class Input extends JTextArea implements observer.Observable, KeyListener
         this.setLineWrap(true);
     }
     
+    public void boldify(){
+        append("****");
+    }
+    
+    public void italicify(){
+        append("**");
+    }
+    
+    
     /**
      * Append String to the content of Markdown file
      * @param string 
      */
     @Override
     public void append(String string) {
+        super.append(string);
         this.updateObserver();
     }
 
