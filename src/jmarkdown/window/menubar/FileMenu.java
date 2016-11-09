@@ -14,6 +14,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import jmarkdown.core.MarkdownFile;
 import jmarkdown.core.MyUtils;
 import jmarkdown.window.Window;
@@ -32,6 +34,7 @@ public class FileMenu extends AbstractMenu{
     private final JMenuItem quit = new JMenuItem("Quit");
     
     protected final JFileChooser fileChooser = new JFileChooser();
+    protected final JFileChooser fileExporter = new JFileChooser();
     
 
     public FileMenu(Window newWindow) {
@@ -50,12 +53,16 @@ public class FileMenu extends AbstractMenu{
         this.add(saveAs).addActionListener(new FileSaveAsListener());
         
         export.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_MASK));
-        this.add(export);
+        this.add(export).addActionListener(new FileExportListener());
         
         quit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_MASK));
         this.add(quit);
         
         fileChooser.addChoosableFileFilter(new MarkdownFileFilter());
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        
+        fileExporter.addChoosableFileFilter(new FileNameExtensionFilter("HTML file", "html"));
+        fileExporter.setAcceptAllFileFilterUsed(false);
         
         
     }
@@ -117,6 +124,33 @@ public class FileMenu extends AbstractMenu{
         public void actionPerformed(ActionEvent ae) {
             openSaveAs();
         }
+    }
+    class FileExportListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (fileExporter.showSaveDialog(window) == JFileChooser.APPROVE_OPTION) {
+                File file = fileExporter.getSelectedFile();
+                // try to save the file
+                if(window.getMarkdownFile().export(file)){
+                    JOptionPane.showMessageDialog(
+                        window, 
+                        "Your file was exported correctly.", 
+                        "Success", JOptionPane.INFORMATION_MESSAGE
+                    );
+                }else{
+                    // else we display a warning
+                    JOptionPane.showMessageDialog(
+                        window, 
+                        "Your file can't be export. Check that filename not contains any special character or opened in another application", 
+                        "Error", JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            } else { // if user close the file dialog
+                System.out.println("Open command cancelled by user.");
+            }
+        }
+        
     }
     
     /**

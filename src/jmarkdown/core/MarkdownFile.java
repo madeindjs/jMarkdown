@@ -114,14 +114,9 @@ public class MarkdownFile {
      */
     public boolean save(){
         if(this.canBeSaved()){
-            try(FileWriter fw = new FileWriter(this.file)) {
-                fw.write(content);
-                oldContent = content;
-                return true;
-            } catch (IOException ex) {
-                System.out.println("Save file can't be opened");
-                return false;
-            }
+            writeInFile(this.file, content);
+            oldContent = content;
+            return true;
         }else{
             System.out.println("File can't be saved");
             return false;
@@ -136,5 +131,32 @@ public class MarkdownFile {
     public boolean save(File newFile){
         this.file = newFile;
         return this.save();
+    }
+    
+    /**
+     * Save specific content in a specific file
+     * It's a shared method between `save` & `export`
+     * @param writeFile as specific file to write
+     * @param writeContent as content to writte 
+     * @return 
+     */
+    private boolean writeInFile(File writeFile, String writeContent){
+            try(FileWriter fw = new FileWriter(writeFile)) {
+                fw.write(writeContent);
+                return true;
+            } catch (IOException ex) {
+                System.out.println("File can't be opened");
+                return false;
+            } catch(NullPointerException ex){
+                return false;
+            }
+    }
+    
+    /**
+     * Export the Markdown file as Html
+     * @param exportFile 
+     */
+    public boolean export(File exportFile){
+        return writeInFile(exportFile, this.toHtml());
     }
 }
