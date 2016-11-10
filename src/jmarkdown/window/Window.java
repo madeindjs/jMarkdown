@@ -24,9 +24,8 @@
 package jmarkdown.window;
 
 import jmarkdown.window.menubar.MenuBar;
-import java.awt.GridLayout;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import jmarkdown.core.MarkdownFile;
 import jmarkdown.window.form.Input;
 import jmarkdown.window.form.Output;
@@ -37,12 +36,11 @@ import jmarkdown.window.form.Output;
  */
 public class Window extends JFrame implements observer.Observer{
     
-    private MenuBar menuBar;
+    private final MenuBar menuBar;
     
-    private JPanel container = new JPanel(); 
+    private final JSplitPane container; 
     public Input input = new Input();
     public Output output = new Output();
-    private GridLayout layout = new GridLayout(1,2);
     
     private MarkdownFile mdFile = new MarkdownFile();
 
@@ -51,14 +49,9 @@ public class Window extends JFrame implements observer.Observer{
         
         menuBar = new MenuBar(this);
         
-        // set GridLayout properties
-        layout.setHgap(5);
-        layout.setVgap(5);
-        container.setLayout(layout);
-        
         // insert objects in main container
-        container.add(input);
-        container.add(output);
+        container = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, input, output);
+        container.setOneTouchExpandable(true);
         this.setContentPane(container);
         
         // set menu bar

@@ -36,8 +36,8 @@ import observer.Observer;
  */
 public class Input extends JEditorPane implements observer.Observable, KeyListener{
     
-    private ArrayList<Observer> observers = new ArrayList<Observer>();
-    private Font font = new Font("Verdana", Font.PLAIN, 12);
+    private ArrayList<Observer> observers = new ArrayList<>();
+    private final Font font = new Font("Verdana", Font.PLAIN, 12);
 
     public Input() {
         super();
@@ -124,9 +124,7 @@ public class Input extends JEditorPane implements observer.Observable, KeyListen
 
     @Override
     public void updateObserver() {
-        for(Observer obs : observers){
-            obs.update();
-        }
+        observers.forEach((obs) -> { obs.update(); });
     }
 
     @Override

@@ -35,7 +35,7 @@ import javax.swing.text.html.StyleSheet;
  */
 public class Output extends JEditorPane{
     
-    private Font font = new Font("Verdana", Font.PLAIN, 12);
+    private final Font font = new Font("Verdana", Font.PLAIN, 12);
 
     public Output() {
         super();

@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 import jmarkdown.window.menubar.FileMenu;
 
 /**
@@ -50,10 +49,9 @@ public class MarkdownFile {
     
     /**
      * Initialize Markdown object from a Markdown file
-     * @param file as a Markdown file
+     * @param newFile as a Markdown file
      */
     public MarkdownFile(File newFile){
-        Stream<String> lines;
         this.setFile(newFile);
     }
     
@@ -179,6 +177,7 @@ public class MarkdownFile {
     /**
      * Export the Markdown file as Html
      * @param exportFile 
+     * @return true if success 
      */
     public boolean export(File exportFile){
         return writeInFile(exportFile, this.toHtml());

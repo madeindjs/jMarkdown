@@ -39,7 +39,6 @@ public class MenuBar extends JMenuBar{
         
         this.add(new FileMenu(newWindow));
         this.add(new FormatMenu(newWindow));
-        this.add(new WindowsMenu(newWindow));
         this.add(new HelpMenu(newWindow));
     }
     

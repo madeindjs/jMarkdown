@@ -208,7 +208,7 @@ public class FileMenu extends AbstractMenu{
      */
     class MarkdownFileFilter extends javax.swing.filechooser.FileFilter{
         
-        private String[] allowedExtensions = new String[]{"markdown","mdown","md"};
+        private final String[] allowedExtensions = new String[]{"markdown","mdown","md"};
 
         public MarkdownFileFilter() {
         }
