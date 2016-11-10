@@ -21,16 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package observer;
+package jmarkdown.window.menubar;
+
+import javax.swing.JMenu;
+import jmarkdown.window.Window;
 
 /**
- * Represent an object who can catch signals
+ * An abstract class for all Jmenu Item
  * @author rousseaua
  */
-public interface Observer {
+public abstract class AbstractMenu extends JMenu{
     
-    /**
-     * Catch the signal from the Observable object
-     */
-    public void update();
+    protected Window window ;
+
+    public AbstractMenu(String newName, Window newWindow) {
+        super(newName);
+        window = newWindow;
+    }
 }

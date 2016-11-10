@@ -21,16 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package observer;
+package jmarkdown.window.menubar;
+
+import javax.swing.JMenuBar;
+import jmarkdown.window.Window;
 
 /**
- * Represent an object who can catch signals
+ * a complete menubar for jMarkdown
  * @author rousseaua
  */
-public interface Observer {
+public class MenuBar extends JMenuBar{
     
-    /**
-     * Catch the signal from the Observable object
-     */
-    public void update();
+    private Window window ;
+    
+    public MenuBar(Window newWindow) {
+        this.window = newWindow ;
+        
+        this.add(new FileMenu(newWindow));
+        this.add(new FormatMenu(newWindow));
+        this.add(new HelpMenu(newWindow));
+    }
+    
 }

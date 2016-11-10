@@ -21,16 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package observer;
+package jmarkdown.core;
+
+import java.io.File;
 
 /**
- * Represent an object who can catch signals
+ *
  * @author rousseaua
  */
-public interface Observer {
+public class MyUtils {
+
+    /**
+     * Get extension's file from a String
+     * @param filename
+     * @return extension in lower case 
+     */
+    public static String getExtension(String filename) {
+        String ext = null;
+        int i = filename.lastIndexOf('.');
+
+        if (i > 0 &&  i < filename.length() - 1) {
+            ext = filename.substring(i+1).toLowerCase();
+        }
+        return ext;
+    }
     
     /**
-     * Catch the signal from the Observable object
+     * Get extension's file from a java.io.File
+     * @param file
+     * @return extension in lower case 
      */
-    public void update();
+    public static String getExtension(File file) {
+        return MyUtils.getExtension(file.getName());
+    }
+
 }
