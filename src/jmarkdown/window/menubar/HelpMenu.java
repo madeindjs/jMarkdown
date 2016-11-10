@@ -23,6 +23,14 @@
  */
 package jmarkdown.window.menubar;
 
+import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JMenuItem;
 import jmarkdown.window.Window;
 
@@ -34,11 +42,31 @@ public class HelpMenu extends AbstractMenu{
     
     private final JMenuItem syntax = new JMenuItem("Markdown Syntax");
     private final JMenuItem about = new JMenuItem("About");
+    private final Desktop desktop = Desktop.getDesktop() ;
     
     public HelpMenu(Window newWindow) {
         super("Help", newWindow);
-        this.add(syntax);
-        this.add(about);
+        this.add(syntax).addActionListener(new HelpSyntaxListener());
+        this.add(about).addActionListener(new HelpAboutListener());
+    }
+    
+    class HelpSyntaxListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent ae) {openUrl("https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet");}
+    }
+    class HelpAboutListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent ae) { openUrl("https://github.com/madeindjs/jMarkdown");}
+    }
+    
+    private void openUrl(String url){
+        try {
+            desktop.browse(new URI(url));
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(HelpMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HelpMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
